@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎉 Feliz 16 Leslie 💖</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      color: #fff;
+      text-align: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3.2em;
+      margin-top: 80px;
+      animation: pop 1s ease-out forwards;
+      text-shadow: 2px 2px 10px rgba(255, 105, 180, 0.8);
+      position: relative;
+      z-index: 2;
+    }
+
+    p {
+      font-size: 1.4em;
+      margin-top: 20px;
+      animation: fade 2s ease-in-out;
+      line-height: 1.4em;
+      position: relative;
+      z-index: 2;
+    }
+
+    .boton {
+      background: #fff;
+      color: #ff6f91;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 1em;
+      margin-top: 40px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 2;
+    }
+
+    .boton:hover {
+      transform: scale(1.1);
+      background: #ffe6eb;
+    }
+
+    .confetti {
+      position: absolute;
+      pointer-events: none;
+      width: 10px;
+      height: 10px;
+      animation: fallConfetti 5s linear infinite;
+      z-index: 3;
+    }
+
+    .balloon {
+      position: absolute;
+      width: 50px;
+      height: 70px;
+      background: red;
+      border-radius: 50%;
+      animation: float 8s ease-in-out infinite;
+      opacity: 0;
+      z-index: 1;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(110vh); opacity: 0; }
+      10% { opacity: 1; }
+      50% { transform: translateY(-10vh); opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(110vh); opacity: 0; }
+    }
+
+    @keyframes fallConfetti {
+      0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes fade {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes heartFade {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-40px); opacity: 0; }
+    }
+
+    /* 🎮 Juego */
+    #juego {
+      margin-top: 80px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 15px;
+      padding: 20px;
+    }
+
+    canvas {
+      background: rgba(255,255,255,0.2);
+      border-radius: 10px;
+      display: block;
+      margin: auto;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>🎉 ¡Feliz Cumpleaños Leslie! 🎂</h1>
+  <p>¡Hoy 15 de Agosto cumples 16 años de vidaaa!^^ 💖<br>¡Que tu día sea muy especiall! Espero que en este día, no exista tristesa ni dolor a tu alrededor, que solo sea felicidad, amor y cariño 🤭🎁 que tu día este lleno de sorpresas y de muchas sonrisas y risas 🙌🎉</p>
+  <button class="boton" onclick="tirarCorazones()">Haz Click 💫</button>
+
+  <!-- 🎮 Juego -->
+  <div id="juego">
+    <h2>🎈 Atrapa los Globos 🎈</h2>
+    <canvas id="gameCanvas" width="300" height="400"></canvas>
+    <p>Puntos: <span id="score">0</span></p>
+  </div>
+
+  <script>
+    const colores = ['#fce38a', '#f38181', '#ff9a9e', '#fad0c4', '#a18cd1', '#fbc2eb'];
+
+    // Confeti
+    for (let i = 0; i < 80; i++) {
+      let confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.top = Math.random() * -100 + 'px';
+      confetti.style.backgroundColor = colores[Math.floor(Math.random() * colores.length)];
+      confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      confetti.style.opacity = Math.random();
+      document.body.appendChild(confetti);
+    }
+
+    // Globos debajo del texto
+    for (let i = 0; i < 6; i++) {
+      let balloon = document.createElement('div');
+      balloon.className = 'balloon';
+      balloon.style.left = Math.random() * 100 + 'vw';
+      balloon.style.backgroundColor = colores[Math.floor(Math.random() * colores.length)];
+      balloon.style.animationDelay = (Math.random() * 5) + 's';
+      document.body.appendChild(balloon);
+    }
+
+    // Corazones
+    function tirarCorazones() {
+      for (let i = 0; i < 30; i++) {
+        let corazon = document.createElement("div");
+        corazon.innerHTML = "😊";
+        corazon.style.position = "absolute";
+        corazon.style.left = Math.random() * 100 + "vw";
+        corazon.style.top = Math.random() * 100 + "vh";
+        corazon.style.fontSize = (Math.random() * 30 + 20) + "px";
+        corazon.style.animation = "heartFade 2.5s ease-out forwards";
+        corazon.style.zIndex = 4;
+        document.body.appendChild(corazon);
+        setTimeout(() => corazon.remove(), 2500);
+      }
+    }
+
+    // 🎮 Juego Atrapa Globos
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    let score = 0;
+    let player = { x: 130, y: 350, w: 40, h: 40, color: "#ff6f91" };
+    let balloons = [];
+
+    function drawPlayer() {
+      ctx.fillStyle = player.color;
+      ctx.fillRect(player.x, player.y, player.w, player.h);
+    }
+
+    function drawBalloons() {
+      balloons.forEach(b => {
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+        ctx.fillStyle = b.color;
+        ctx.fill();
+      });
+    }
+
+    function updateBalloons() {
+      balloons.forEach((b, i) => {
+        b.y += b.speed;
+        if (b.y > canvas.height) balloons.splice(i, 1);
+        if (b.x > player.x && b.x < player.x + player.w && b.y > player.y && b.y < player.y + player.h) {
+          score++;
+          document.getElementById("score").innerText = score;
+          balloons.splice(i, 1);
+        }
+      });
+    }
+
+    function spawnBalloon() {
+      balloons.push({
+        x: Math.random() * (canvas.width - 20) + 10,
+        y: -20,
+        r: 10,
+        color: colores[Math.floor(Math.random() * colores.length)],
+        speed: 2 + Math.random() * 2
+      });
+    }
+
+    function clearCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function gameLoop() {
+      clearCanvas();
+      drawPlayer();
+      drawBalloons();
+      updateBalloons();
+      requestAnimationFrame(gameLoop);
+    }
+
+    setInterval(spawnBalloon, 1000);
+    gameLoop();
+
+    window.addEventListener("keydown", e => {
+      if (e.key === "ArrowLeft" && player.x > 0) player.x -= 20;
+      if (e.key === "ArrowRight" && player.x < canvas.width - player.w) player.x += 20;
+    });
+  </script>
+</body>
+</html>
